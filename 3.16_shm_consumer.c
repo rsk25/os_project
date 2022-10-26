@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,6 +6,7 @@
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/types.h>
 
 int main()
 {
@@ -18,7 +20,7 @@ int main()
 
     shm_fd = shm_open(name, O_RDONLY, 0666);
 
-    ptr = (char *)mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    ptr = (char *)mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
     
     printf("%s", (char *)ptr);
     /* remove the shared memory */

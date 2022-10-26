@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,6 +6,7 @@
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/types.h>
 
 int main()
 {
@@ -23,7 +25,7 @@ int main()
     ftruncate(shm_fd, SIZE);
 
     /* map the shared memory obj */
-    ptr = (char *)mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    ptr = (char *)mmap(0, SIZE, PROT_WRITE, MAP_SHARED, shm_fd, 0);
     
     /* write to the shared memory */
     sprintf(ptr, "%s", message_0);
